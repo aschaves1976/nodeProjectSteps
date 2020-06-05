@@ -12,6 +12,7 @@ yarn add sequelize-oracle
 ## 
 ## Criar na raiz do diretorio onde esta o projeto:
 	## Arquivo .nvmrc
+	https://github.com/nvm-sh/nvm
 		## Informar a versao do Node que esta sendo utilizada no projeto (comando para verificar versoes do node instaladas no computador: nvm ls)
 		## Este arquivo permite que o gerenciador de versoes do node altere a versao em uso de acordo com o projeto que esta sendo utilizado
 	## Arquivo app.js
