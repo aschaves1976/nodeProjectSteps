@@ -1,0 +1,89 @@
+## CRIAR PROJETO NODE.JS ##
+## Pode existir diferentes versoes do Node.js na maquina
+## Instalar atraves do nvm - gerenciador de versão do Node.js que permite gravar(controlar) diferentes versoes na maquina
+##
+======== NVM Instalacao ========
+https://github.com/nvm-sh/nvm
+
+======== Sequelize para Oracle ========
+https://www.npmjs.com/package/sequelize-oracle
+yarn add sequelize-oracle
+
+## 
+## Criar na raiz do diretorio onde esta o projeto:
+	## Arquivo .nvmrc
+		## Informar a versao do Node que esta sendo utilizada no projeto (comando para verificar versoes do node instaladas no computador: nvm ls)
+		## Este arquivo permite que o gerenciador de versoes do node altere a versao em uso de acordo com o projeto que esta sendo utilizado
+	## Arquivo app.js
+		## Módulo principal do projeto
+
+## Gerenciadores de Pacote utilizados em projetos:
+	## npm - Gerenciador de pacotes do Javascript criado em 2009;
+		## npm install --save--dev
+		--> PS.: Utilizar sempre o npm quando for instalar um pacote de forma global, não é aconselhável utilizar o yarn <--
+	## yarn - Gerenciador de pacotes do Facebook criado em 2016, para tornar a instalacao das dependencias mais rapidas e mais seguras
+		## yarn add - comando para instalar pacote no projeto
+	## Aconselhavel utilizar o yarn como gerenciador de pacotes nos projetos - https://yarnpkg.com/
+
+## Instalar de forma global o nodemon
+	## npm install -g nodemon
+	## Acrescentar no arquivo package.json
+		"scripts": {
+			"start": nodemon app.js
+		}
+
+## express
+	## Biblioteca Node.js muito popular;
+	## Muito simples e oferece tudo o que precisamos para criar nosso desenvolvimento backend;
+	## Utiliza middlewares;
+		## Simples -> Será sempre uma entrada e uma saída
+		## É uma funcao que contem 3 parametros (req, res, next), onde:
+			## req - é a requisição feita;
+			## res - é a resposta a requisição;
+			## next - parametro que define se a app vai prosseguir para o próximo middleware ou não.
+		## Ex.: const logDate = (req, res, next) =>{
+					console.log('Time: ', Date.now())
+					next()
+				}
+		## Para utilizar um middleware basta utilizar a função use do express
+			## Ex.: express.use(logDate)
+		## Middlewares essenciais - bibliotecas úteis para um projeto:
+			const express = require('express')
+			const bodyParser = require ('body-parser') // faz o parse da string para json, pois o tráfego de informação via HTTP é feito via string
+				## yarn add body-parse
+				## curl -d '{"user": {"username": "Silas","password":"2@1iS"}}' -H "Content-Type: application/json" -X POST  http://localhost:3000/
+			const cors = require ('cors') // se vc tentar acessar uma api com url diferente da sua sem o cors ativo vai dar erro na app
+			const morgan = require('morgan')         // gera um log detalhado da requisição (https://www.npmjs.com/package/morgan)
+				##yarn add morgan
+			
+			const app = express()
+			
+			app.use(express.static('public')) // permite que todos os arquivos estaticos sejam visualizados/acessados
+			app.use(bodyParse.json())
+			app.use(cors())
+			app.use(morgan())
+			## CORS - https://flaviocopes.com/cors/
+
+	## yarn add express - http://expressjs.com/pt-br/guide/using-middleware.html
+		## const express = require('express')
+		## const app = express()
+	## O metodo send do express é dinamico, ou seja ele entende se vc colocou uma string ele retorna um html, se vc colocar um objeto ou array ele retorna um json
+
+## Criar uma pasta de rotas
+	## Criar um arquivo para cada resource que for utilizado no projeto:
+		Ex.: Fazer CRUD em uma tabela de empregados, entao criar um arquivo empregado.js responsável por todas as operações que serão realizadas em empregados
+		## Sempre ao final do codigo fazer um module.export para que o mesmo possa ser utilizado como um middleware - atraves de require()
+	## Fazer o require do arquivo no seu módulo principal (app.js)
+## Com GraphQL
+	## instalar a biblioteca graphql
+	## instalar a biblioteca apollo-server-express para poder utilizar API Rest junto
+	## No modulo principal 
+		##  requisitar ApolloServer e gqp
+			-> const {ApolloServer, gqp} = require ('apollo-server-express')
+		## criar schemas
+			-> typeDefs
+			-> resolvers
+		## Adicionar o middleware para o apollo server 
+			-> const server = new ApolloServer({typeDefs, resolvers})
+			-> server.applyMiddleware ( { app })
+	## local para validar as queries: http://localhost:4000/
