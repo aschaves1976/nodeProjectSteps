@@ -4,6 +4,7 @@
 ##
 ======== NVM Instalacao ========
 https://github.com/nvm-sh/nvm
+https://dicasdejavascript.com.br/como-criar-um-projeto-nodejs-com-npm/
 
 ======== Sequelize para Oracle ========
 https://www.npmjs.com/package/sequelize-oracle
